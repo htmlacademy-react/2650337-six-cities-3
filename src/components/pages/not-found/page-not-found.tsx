@@ -1,5 +1,6 @@
 import {ReactElement} from 'react';
 import {Link} from 'react-router-dom';
+import {AppRoute} from '../../../const.ts';
 
 function PageNotFound(): ReactElement {
   return (
@@ -34,7 +35,7 @@ function PageNotFound(): ReactElement {
         >
           Упс... Такой страницы нет
         </p>
-        <Link to='/'>
+        <Link to={AppRoute.MainPage}>
           <p style={{
             padding: '25px 30px 30px 15px',
             fontSize: '30px',

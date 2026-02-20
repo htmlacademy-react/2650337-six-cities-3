@@ -9,27 +9,29 @@ import PageNotFound from '../pages/not-found/page-not-found.tsx';
 
 import PrivateRoute from '../private-route/private-route.tsx';
 
+import {AppRoute, AuthStatus} from '../../const.ts';
+
 type AppProps = {
   cardsAmount: number;
 }
 
 function App({cardsAmount}: AppProps): ReactElement {
-  const isAuth = true;
+  const isAuth = AuthStatus.NoAuth;
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<MainPage cardsAmount={cardsAmount}/>} />
-        <Route path='/login' element={<LoginPage />} />
+        <Route path={AppRoute.MainPage} element={<MainPage cardsAmount={cardsAmount}/>} />
+        <Route path={AppRoute.LoginPage} element={<LoginPage />} />
         <Route
-          path='/favorites'
+          path={AppRoute.FavoritesPage}
           element={
             <PrivateRoute isAuth={isAuth}>
               <FavoritesPage />
             </PrivateRoute>
           }
         />
-        <Route path='/offer/:id' element={<OfferPage />} />
+        <Route path={AppRoute.OfferPage} element={<OfferPage />} />
         <Route path='*' element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
