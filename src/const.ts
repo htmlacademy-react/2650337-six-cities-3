@@ -59,7 +59,7 @@ export const CITIES: City[] = [
 export enum AppRoute {
   MainPage = '/',
   LoginPage = '/login',
-  FavoritesPage = 'favorites',
+  FavoritesPage = '/favorites',
   OfferPage = '/offer/:id'
 }
 

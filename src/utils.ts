@@ -6,3 +6,5 @@ export function getRandomCards<T>(data: T[], count: number): T[] {
 export function getRatingWidth(props: Offer): string {
   return `${Math.round(props.rating) * 20}%`;
 }
+
+export const getOfferRoute = (id: string) => `/offer/${id}`;

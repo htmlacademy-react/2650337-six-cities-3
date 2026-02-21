@@ -5,17 +5,23 @@ import {Link} from 'react-router-dom';
 
 type PlaceCardProps = {
   data: Offer;
+  onHover: (id: string) => void;
+  onLeave: () => void;
   // variant: 'Vertical' | 'Horizontal';
 }
 
 function PlaceCard(props: PlaceCardProps): ReactElement {
   return (
-    <article className='cities__card place-card'>
+    <article
+      className='cities__card place-card'
+      onMouseEnter={() => props.onHover(props.data.id)}
+      onMouseLeave={props.onLeave}
+    >
       <div className='place-card__mark'>
         <span>Premium</span>
       </div>
       <div className='cities__image-wrapper place-card__image-wrapper'>
-        <Link to='#'>
+        <Link to={`/offer/${props.data.id}`}>
           <img className='place-card__image' src={props.data.previewImage} width='260' height='200' alt='Place image'/>
         </Link>
       </div>
@@ -39,7 +45,7 @@ function PlaceCard(props: PlaceCardProps): ReactElement {
           </div>
         </div>
         <h2 className='place-card__name'>
-          <Link to='#'>{props.data.title}</Link>
+          <Link to={`/offer/${props.data.id}`}>{props.data.title}</Link>
         </h2>
         <p className='place-card__type'>Apartment</p>
       </div>

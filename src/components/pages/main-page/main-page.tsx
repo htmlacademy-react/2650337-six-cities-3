@@ -1,16 +1,16 @@
-import { ReactElement } from 'react';
-import PlaceCard from '../../place-card/place-card.tsx';
-import { mockData } from '../../../mock/mock-data.ts';
-import { getRandomCards } from '../../../utils.ts';
+import {ReactElement, useState} from 'react';
+import {Offer} from '../../../types/offer.ts';
 import {AppRoute} from '../../../const.ts';
 import {Link} from 'react-router-dom';
+import PlaceCardList from '../../place-card/place-card-list.tsx';
 
 type MainPageProps = {
   cardsAmount: number;
+  offers: Offer[];
 }
 
-function MainPage({cardsAmount}: MainPageProps): ReactElement {
-  const cards = getRandomCards(mockData, cardsAmount);
+function MainPage({offers, cardsAmount}: MainPageProps): ReactElement {
+  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
 
   return (
     <div className='page page--gray page--main'>
@@ -19,7 +19,7 @@ function MainPage({cardsAmount}: MainPageProps): ReactElement {
           <div className='header__wrapper'>
             <div className='header__left'>
               <Link className='header__logo-link header__logo-link--active' to={AppRoute.MainPage}>
-                <img className='header__logo' src='/img/logo.svg' alt='6 cities logo' width='81' height='41' />
+                <img className='header__logo' src='/img/logo.svg' alt='6 cities logo' width='81' height='41'/>
               </Link>
             </div>
             <nav className='header__nav'>
@@ -101,14 +101,12 @@ function MainPage({cardsAmount}: MainPageProps): ReactElement {
                   <li className='places__option' tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className='cities__places-list places__list tabs__content'>
-                {cards.map((card) => (
-                  <PlaceCard
-                    key={card.id}
-                    data={card}
-                  />
-                ))}
-              </div>
+              <PlaceCardList
+                cardsAmount={cardsAmount}
+                offers={offers}
+                onCardHover={setActiveOfferId}
+                onCardLeave={() => setActiveOfferId(null)}
+              />
             </section>
             <div className='cities__right-section'>
               <section className='cities__map map'></section>
