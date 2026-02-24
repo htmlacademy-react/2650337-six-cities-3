@@ -1,4 +1,12 @@
 import { Offer } from '../types/offer.ts';
+import {CITIES} from '../const.ts';
+
+const cityParis = CITIES.find((city) => city.name === 'Paris');
+const cityCologne = CITIES.find((city) => city.name === 'Cologne');
+const cityBrussels = CITIES.find((city) => city.name === 'Brussels');
+const cityAmsterdam = CITIES.find((city) => city.name === 'Amsterdam');
+const cityHamburg = CITIES.find((city) => city.name === 'Hamburg');
+const cityDusseldorf = CITIES.find((city) => city.name === 'Dusseldorf');
 
 export const mockData: Offer[] = [
   {
@@ -6,14 +14,7 @@ export const mockData: Offer[] = [
     'title': 'Beautiful & luxurious studio at great location',
     // 'type': 'apartment',
     'price': 120,
-    // 'city': {
-    //   'name': 'Amsterdam',
-    //   'location': {
-    //     'latitude': 52.35514938496378,
-    //     'longitude': 4.673877537499948,
-    //     'zoom': 8
-    //   }
-    // },
+    'city': cityParis,
     // 'location': {
     //   'latitude': 52.35514938496378,
     //   'longitude': 4.673877537499948,
@@ -29,14 +30,7 @@ export const mockData: Offer[] = [
     'title': 'Elegant studio wrapped in shadows and quiet luxury',
     // 'type': 'room',
     'price': 110,
-    // 'city': {
-    //   'name': 'Amsterdam',
-    //   'location': {
-    //     'latitude': 52.37918947238194,
-    //     'longitude': 4.89943127491837,
-    //     'zoom': 8
-    //   }
-    // },
+    'city': cityAmsterdam,
     // 'location': {
     //     'latitude': 52.37918947238194,
     //     'longitude': 4.89943127491837,
@@ -52,14 +46,7 @@ export const mockData: Offer[] = [
     'title': 'Stone and wood retreat with secrets in the walls',
     // 'type': 'house',
     'price': 80,
-    // 'city': {
-    //   'name': 'Amsterdam',
-    //   'location': {
-    //     'latitude': 52.36757391827463,
-    //     'longitude': 4.90413956372841,
-    //     'zoom': 8
-    //   }
-    // },
+    'city': cityBrussels,
     // 'location': {
     //     'latitude': 52.36757391827463,
     //     'longitude': 4.90413956372841,
@@ -75,14 +62,7 @@ export const mockData: Offer[] = [
     'title': 'Warm, intimate apartment where silence feels expensive',
     // 'type': 'apartment',
     'price': 1200,
-    // 'city': {
-    //   'name': 'Amsterdam',
-    //   'location': {
-    //     'latitude': 52.35474982736491,
-    //     'longitude': 4.83392174829163,
-    //     'zoom': 8
-    //   }
-    // },
+    'city': cityCologne,
     // 'location': {
     //     'latitude': 52.35474982736491,
     //     'longitude': 4.83392174829163,
@@ -98,14 +78,7 @@ export const mockData: Offer[] = [
     'title': 'Hidden gem studio in the heart of the city',
     // 'type': 'hotel',
     'price': 145,
-    // 'city': {
-    //   'name': 'Amsterdam',
-    //   'location': {
-    //     'latitude': 52.38812374629158,
-    //     'longitude': 4.84177291837465,
-    //     'zoom': 8
-    //   }
-    // },
+    'city': cityHamburg,
     // 'location': {
     //     'latitude': 52.38812374629158,
     //     'longitude': 4.84177291837465,
@@ -121,14 +94,7 @@ export const mockData: Offer[] = [
     'title': 'Cozy hideaway with a bed made for long nights',
     // 'type': 'room',
     'price': 98,
-    // 'city': {
-    //   'name': 'Amsterdam',
-    //   'location': {
-    //     'latitude': 52.34245691827364,
-    //     'longitude': 4.91233475619283,
-    //     'zoom': 8
-    //   }
-    // },
+    'city': cityDusseldorf,
     // 'location': {
     //     'latitude': 52.34245691827364,
     //     'longitude': 4.91233475619283,
@@ -144,14 +110,7 @@ export const mockData: Offer[] = [
     'title': 'Refined space where light falls softly on stone floors',
     // 'type': 'studio',
     'price': 220,
-    // 'city': {
-    //   'name': 'Amsterdam',
-    //   'location': {
-    //     'latitude': 52.37021647382915,
-    //     'longitude': 4.87364591827364,
-    //     'zoom': 8
-    //   }
-    // },
+    'city': cityDusseldorf,
     // 'location': {
     //     'latitude': 52.37021647382915,
     //     'longitude': 4.87364591827364,
@@ -167,14 +126,7 @@ export const mockData: Offer[] = [
     'title': 'Urban sanctuary with a touch of mystery',
     // 'type': 'studio',
     'price': 320,
-    // 'city': {
-    //   'name': 'Amsterdam',
-    //   'location': {
-    //     'latitude': 52.39284756192837,
-    //     'longitude': 4.93125637481926,
-    //     'zoom': 8
-    //   }
-    // },
+    'city': cityCologne,
     // 'location': {
     //     'latitude': 52.39284756192837,
     //     'longitude': 4.93125637481926,
@@ -190,14 +142,7 @@ export const mockData: Offer[] = [
     'title': 'Soft-lit apartment with timeless wooden charm',
     // 'type': 'room',
     'price': 1456,
-    // 'city': {
-    //   'name': 'Amsterdam',
-    //   'location': {
-    //     'latitude': 52.35198264738291,
-    //     'longitude': 4.86421983746512,
-    //     'zoom': 8
-    //   }
-    // },
+    'city': cityParis,
     // 'location': {
     //     'latitude': 52.35198264738291,
     //     'longitude': 4.86421983746512,
@@ -213,14 +158,7 @@ export const mockData: Offer[] = [
     'title': 'Discreet luxury studio in a prime location',
     // 'type': 'house',
     'price': 346,
-    // 'city': {
-    //   'name': 'Amsterdam',
-    //   'location': {
-    //     'latitude': 52.36540192837465,
-    //     'longitude': 4.94587216374829,
-    //     'zoom': 8
-    //   }
-    // },
+    'city' : cityBrussels,
     // 'location': {
     //     'latitude': 52.36540192837465,
     //     'longitude': 4.94587216374829,
@@ -236,14 +174,7 @@ export const mockData: Offer[] = [
     'title': 'Intimate retreat with warm textures and deep comfort',
     // 'type': 'apartment',
     'price': 135,
-    // 'city': {
-    //   'name': 'Amsterdam',
-    //   'location': {
-    //     'latitude': 52.37784256192837,
-    //     'longitude': 4.82013574819263,
-    //     'zoom': 8
-    //   }
-    // },
+    'city': cityAmsterdam,
     // 'location': {
     //     'latitude': 52.37784256192837,
     //     'longitude': 4.82013574819263,
@@ -259,14 +190,7 @@ export const mockData: Offer[] = [
     'title': 'Stylish hideout where comfort meets quiet elegance',
     // 'type': 'studio',
     'price': 112,
-    // 'city': {
-    //   'name': 'Amsterdam',
-    //   'location': {
-    //     'latitude': 52.36092481726354,
-    //     'longitude': 4.88967237481926,
-    //     'zoom': 8
-    //   }
-    // },
+    'city': cityCologne,
     // 'location': {
     //     'latitude': 52.36092481726354,
     //     'longitude': 4.88967237481926,
@@ -282,14 +206,7 @@ export const mockData: Offer[] = [
     'title': 'Stone-walled haven with a story to tell',
     // 'type': 'hotel',
     'price': 110,
-    // 'city': {
-    //   'name': 'Amsterdam',
-    //   'location': {
-    //     'latitude': 52.34871592637481,
-    //     'longitude': 4.90128463718294,
-    //     'zoom': 8
-    //   }
-    // },
+    'city': cityAmsterdam,
     // 'location': {
     //     'latitude': 52.34871592637481,
     //     'longitude': 4.90128463718294,
@@ -305,14 +222,7 @@ export const mockData: Offer[] = [
     'title': 'Private escape with a generously sized, inviting bed',
     // 'type': 'hotel',
     'price': 514,
-    // 'city': {
-    //   'name': 'Amsterdam',
-    //   'location': {
-    //     'latitude': 52.38351627481926,
-    //     'longitude': 4.91277846372819,
-    //     'zoom': 8
-    //   }
-    // },
+    'city': cityParis,
     // 'location': {
     //     'latitude': 52.38351627481926,
     //     'longitude': 4.91277846372819,
@@ -329,14 +239,7 @@ export const mockData: Offer[] = [
     'title': 'Sophisticated studio with moody ambiance',
     // 'type': 'apartment',
     'price': 178,
-    // 'city': {
-    //   'name': 'Amsterdam',
-    //   'location': {
-    //     'latitude': 52.37496856192837,
-    //     'longitude': 4.85794137281946,
-    //     'zoom': 8
-    //   }
-    // },
+    'city': cityBrussels,
     // 'location': {
     //     'latitude': 52.37496856192837,
     //     'longitude': 4.85794137281946,
@@ -352,14 +255,7 @@ export const mockData: Offer[] = [
     'title': 'Warm and secluded apartment in a sought-after area',
     // 'type': 'room',
     'price': 56,
-    // 'city': {
-    //   'name': 'Amsterdam',
-    //   'location': {
-    //     'latitude': 52.35827491827364,
-    //     'longitude': 4.92561374829163,
-    //     'zoom': 8
-    //   }
-    // },
+    'city': cityHamburg,
     // 'location': {
     //     'latitude': 52.35827491827364,
     //     'longitude': 4.92561374829163,
@@ -375,14 +271,7 @@ export const mockData: Offer[] = [
     'title': 'Minimalist space with shadows and subtle luxury',
     // 'type': 'studio',
     'price': 165,
-    // 'city': {
-    //   'name': 'Amsterdam',
-    //   'location': {
-    //     'latitude': 52.36948756192837,
-    //     'longitude': 4.83650927481936,
-    //     'zoom': 8
-    //   }
-    // },
+    'city': cityDusseldorf,
     // 'location': {
     //     'latitude': 52.36948756192837,
     //     'longitude': 4.83650927481936,
@@ -398,14 +287,7 @@ export const mockData: Offer[] = [
     'title': 'Elegant hideaway crafted from wood and stone',
     // 'type': 'hotel',
     'price': 212,
-    // 'city': {
-    //   'name': 'Amsterdam',
-    //   'location': {
-    //     'latitude': 52.34419372849162,
-    //     'longitude': 4.87945291827364,
-    //     'zoom': 8
-    //   }
-    // },
+    'city': cityCologne,
     // 'location': {
     //     'latitude': 52.34419372849162,
     //     'longitude': 4.87945291827364,
@@ -421,14 +303,7 @@ export const mockData: Offer[] = [
     'title': 'Cozy refuge with an air of intrigue',
     // 'type': 'room',
     'price': 267,
-    // 'city': {
-    //   'name': 'Amsterdam',
-    //   'location': {
-    //     'latitude': 52.38962456192837,
-    //     'longitude': 4.90231774819263,
-    //     'zoom': 8
-    //   }
-    // },
+    'city': cityHamburg,
     // 'location': {
     //     'latitude': 52.38962456192837,
     //     'longitude': 4.90231774819263,
@@ -444,14 +319,7 @@ export const mockData: Offer[] = [
     'title': 'Quiet central studio where nights feel cinematic',
     // 'type': 'apartment',
     'price': 2140,
-    // 'city': {
-    //   'name': 'Amsterdam',
-    //   'location': {
-    //     'latitude': 52.37280491827364,
-    //     'longitude': 4.91856327481936,
-    //     'zoom': 8
-    //   }
-    // },
+    'city': cityHamburg,
     // 'location': {
     //     'latitude': 52.37280491827364,
     //     'longitude': 4.91856327481936,
@@ -467,14 +335,7 @@ export const mockData: Offer[] = [
     'title': 'Luxurious nest with warmth, depth, and character',
     // 'type': 'studio',
     'price': 109,
-    // 'city': {
-    //   'name': 'Amsterdam',
-    //   'location': {
-    //     'latitude': 52.35691856192837,
-    //     'longitude': 4.84729074819263,
-    //     'zoom': 8
-    //   }
-    // },
+    'city': cityAmsterdam,
     // 'location': {
     //     'latitude': 52.35691856192837,
     //     'longitude': 4.84729074819263,
