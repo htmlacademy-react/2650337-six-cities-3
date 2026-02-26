@@ -51,7 +51,12 @@ function OfferPage({offers, isAuth}: OfferPageProps): ReactElement {
             </div>
           </div>
 
-          <Map activeOfferId={activeOfferId} mapName={MapName.Offers}/>
+          <Map
+            offers={nearbyPlaces}
+            activeOfferId={activeOfferId}
+            mapName={MapName.Offers}
+            isHoverActive={false}
+          />
 
         </section>
 

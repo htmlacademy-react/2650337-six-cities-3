@@ -54,7 +54,12 @@ function MainPage({offers, cardsAmount, isAuth}: MainPageProps): ReactElement {
             </section>
 
             <div className='cities__right-section'>
-              <Map activeOfferId={activeOfferId} mapName={MapName.Cities}/>
+              <Map
+                offers={offers}
+                activeOfferId={activeOfferId}
+                mapName={MapName.Cities}
+                isHoverActive
+              />
             </div>
 
           </div>

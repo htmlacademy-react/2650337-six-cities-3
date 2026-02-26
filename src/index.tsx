@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app.tsx';
 import { Setting } from './const.ts';
 import {mockData} from './mock/mock-data.ts';
+import 'leaflet/dist/leaflet.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
