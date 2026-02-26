@@ -1,5 +1,5 @@
 import {ReactElement} from 'react';
-import CommentSection from './comment-section.tsx';
+import ReviewForm from './review-form.tsx';
 
 function OfferReviews(): ReactElement {
   return (
@@ -36,7 +36,7 @@ function OfferReviews(): ReactElement {
         </li>
       </ul>
 
-      <CommentSection/>
+      <ReviewForm/>
 
     </section>
   );

@@ -73,26 +73,13 @@ export enum MapName {
   Offers = 'offer',
 }
 
-export enum ViewModeNames {
+export enum CardView {
   Cities = 'CitiesView',
   Favorites = 'FavoritesView',
   Offers = 'OffersView',
 }
 
-export const ViewMode = {
-  CitiesView: {
-    name: 'cities',
-    width: 260,
-    height: 200,
-  },
-  FavoritesView: {
-    name: 'favorites',
-    width: 150,
-    height: 110,
-  },
-  OffersView: {
-    name: 'near-places',
-    width: 260,
-    height: 200,
-  },
-};
+export enum ReviewLimits {
+  Min = 50,
+  Max = 300,
+}

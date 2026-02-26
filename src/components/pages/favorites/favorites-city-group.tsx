@@ -1,16 +1,15 @@
 import {ReactElement} from 'react';
 import {Link} from 'react-router-dom';
 import {Offer} from '../../../types/offer.ts';
-import {ViewMode} from '../../../const.ts';
+import {CardView} from '../../../const.ts';
 
 import PlaceCard from '../../place-card/place-card.tsx';
 
 type FavoritesCityGroupProps = {
   offers: Offer[];
-  viewMode: keyof typeof ViewMode;
 }
 
-function FavoritesCityGroup({ offers, viewMode }: FavoritesCityGroupProps): ReactElement {
+function FavoritesCityGroup({ offers}: FavoritesCityGroupProps): ReactElement {
 
   if (!offers) {
     return <p>Nothing yet saved</p>;
@@ -32,7 +31,7 @@ function FavoritesCityGroup({ offers, viewMode }: FavoritesCityGroupProps): Reac
           <PlaceCard
             key={offer.id}
             data={offer}
-            viewMode={viewMode}
+            viewMode={CardView.Favorites}
           />
         ))}
       </div>

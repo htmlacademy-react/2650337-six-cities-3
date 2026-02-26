@@ -1,6 +1,6 @@
 import {ReactElement, useState} from 'react';
 import {Offer} from '../../../types/offer.ts';
-import {MapName, ViewModeNames} from '../../../const.ts';
+import {AuthStatus, MapName} from '../../../const.ts';
 
 import PlaceCardList from '../../place-card/place-card-list.tsx';
 import Map from '../../map/map.tsx';
@@ -12,9 +12,10 @@ import PlacesSorting from './places-sorting.tsx';
 type MainPageProps = {
   cardsAmount: number;
   offers: Offer[];
+  isAuth: AuthStatus;
 }
 
-function MainPage({offers, cardsAmount}: MainPageProps): ReactElement {
+function MainPage({offers, cardsAmount, isAuth}: MainPageProps): ReactElement {
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
   const handleCardLeave = () => setActiveOfferId(null);
 
@@ -23,7 +24,7 @@ function MainPage({offers, cardsAmount}: MainPageProps): ReactElement {
 
       <header className='header'>
         <div className='container'>
-          <Header rightSlot={<UserNav />} />
+          <Header rightSlot={<UserNav isAuth={isAuth}/>} />
         </div>
       </header>
 
@@ -48,7 +49,6 @@ function MainPage({offers, cardsAmount}: MainPageProps): ReactElement {
                 offers={offers}
                 onCardHover={setActiveOfferId}
                 onCardLeave={handleCardLeave}
-                viewMode={ViewModeNames.Cities}
               />
 
             </section>

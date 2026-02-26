@@ -1,7 +1,7 @@
 import {ReactElement} from 'react';
 import {Link} from 'react-router-dom';
 import {Offer} from '../../../types/offer.ts';
-import {AppRoute, ViewModeNames} from '../../../const.ts';
+import {AppRoute, AuthStatus} from '../../../const.ts';
 
 import Header from '../../layout/header.tsx';
 import UserNav from '../../layout/user-nav.tsx';
@@ -9,9 +9,10 @@ import FavoritesList from './favorites-list.tsx';
 
 type FavoritesPageProps = {
   offers: Offer[];
+  isAuth: AuthStatus;
 }
 
-function FavoritesPage({offers}: FavoritesPageProps): ReactElement {
+function FavoritesPage({offers, isAuth}: FavoritesPageProps): ReactElement {
   // const favorites = offers.filter((offer) => offer.isFavorite);
   const favorites = offers.slice(0, 3);
 
@@ -20,13 +21,13 @@ function FavoritesPage({offers}: FavoritesPageProps): ReactElement {
 
       <header className='header'>
         <div className='container'>
-          <Header rightSlot={<UserNav/>}/>
+          <Header rightSlot={<UserNav isAuth={isAuth}/>}/>
         </div>
       </header>
 
       <main className='page__main page__main--favorites'>
         <div className='page__favorites-container container'>
-          <FavoritesList offers={favorites} viewMode={ViewModeNames.Favorites}/>
+          <FavoritesList offers={favorites}/>
         </div>
       </main>
 
