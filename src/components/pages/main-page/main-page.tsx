@@ -1,4 +1,4 @@
-import {ReactElement, useState} from 'react';
+import {ReactElement, useMemo, useState} from 'react';
 import {Offer} from '../../../types/offer.ts';
 import {AuthStatus, MapName} from '../../../const.ts';
 
@@ -8,6 +8,7 @@ import Header from '../../layout/header.tsx';
 import UserNav from '../../layout/user-nav.tsx';
 import Locations from './locations.tsx';
 import PlacesSorting from './places-sorting.tsx';
+import {getRandomCards} from '../../../utils.ts';
 
 type MainPageProps = {
   cardsAmount: number;
@@ -18,6 +19,7 @@ type MainPageProps = {
 function MainPage({offers, cardsAmount, isAuth}: MainPageProps): ReactElement {
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
   const handleCardLeave = () => setActiveOfferId(null);
+  const cards = useMemo(() => getRandomCards(offers, cardsAmount), [offers, cardsAmount]);
 
   return (
     <div className='page page--gray page--main'>
@@ -45,8 +47,7 @@ function MainPage({offers, cardsAmount, isAuth}: MainPageProps): ReactElement {
               <PlacesSorting />
 
               <PlaceCardList
-                cardsAmount={cardsAmount}
-                offers={offers}
+                offers={cards}
                 onCardHover={setActiveOfferId}
                 onCardLeave={handleCardLeave}
               />
@@ -55,7 +56,7 @@ function MainPage({offers, cardsAmount, isAuth}: MainPageProps): ReactElement {
 
             <div className='cities__right-section'>
               <Map
-                offers={offers}
+                offers={cards}
                 activeOfferId={activeOfferId}
                 mapName={MapName.Cities}
                 isHoverActive
