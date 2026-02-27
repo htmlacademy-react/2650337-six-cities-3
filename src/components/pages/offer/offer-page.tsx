@@ -1,7 +1,7 @@
 import {ReactElement, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {Offer} from '../../../types/offer.ts';
-import {MapName, ViewModeNames} from '../../../const.ts';
+import {MapName, CardView, AuthStatus} from '../../../const.ts';
 
 import Header from '../../layout/header.tsx';
 import UserNav from '../../layout/user-nav.tsx';
@@ -13,9 +13,10 @@ import OfferGallery from './offer-gallery.tsx';
 
 type OfferPageProps = {
   offers: Offer[];
+  isAuth: AuthStatus;
 }
 
-function OfferPage({offers}: OfferPageProps): ReactElement {
+function OfferPage({offers, isAuth}: OfferPageProps): ReactElement {
   const {id} = useParams<{ id: string }>();
   const offer = offers.find((o) => o.id === id);
   const nearbyPlaces = offers.slice(0, 3);
@@ -29,7 +30,7 @@ function OfferPage({offers}: OfferPageProps): ReactElement {
     <div className='page'>
       <header className='header'>
         <div className='container'>
-          <Header rightSlot={<UserNav/>}/>
+          <Header rightSlot={<UserNav isAuth={isAuth}/>}/>
         </div>
       </header>
 
@@ -50,7 +51,12 @@ function OfferPage({offers}: OfferPageProps): ReactElement {
             </div>
           </div>
 
-          <Map activeOfferId={activeOfferId} mapName={MapName.Offers}/>
+          <Map
+            offers={nearbyPlaces}
+            activeOfferId={activeOfferId}
+            mapName={MapName.Offers}
+            isHoverActive={false}
+          />
 
         </section>
 
@@ -65,7 +71,7 @@ function OfferPage({offers}: OfferPageProps): ReactElement {
                   data={place}
                   onHover={setActiveOfferId}
                   onLeave={() => setActiveOfferId(null)}
-                  viewMode={ViewModeNames.Offers}
+                  viewMode={CardView.Offers}
                 />
               ))}
             </div>

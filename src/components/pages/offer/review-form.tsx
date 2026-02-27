@@ -1,10 +1,11 @@
 import { ReactElement, useState } from 'react';
+import {ReviewLimits} from '../../../const.ts';
 
-function CommentSection(): ReactElement {
+function ReviewForm(): ReactElement {
 
-  const [formContent, setFormContent] = useState('');
+  const [reviewText, setReviewText] = useState('');
   const [rating, setRating] = useState<number | null>(null);
-  const isSubmitDisabled = rating === null || formContent.length < 50;
+  const isSubmitDisabled = rating === null || reviewText.length < +ReviewLimits.Min || reviewText.length > +ReviewLimits.Max;
 
   return (
     <form
@@ -99,8 +100,8 @@ function CommentSection(): ReactElement {
         id='review'
         name='review'
         placeholder='Tell how was your stay, what you like and what can be improved'
-        value={formContent}
-        onChange={(e) => setFormContent(e.target.value)}
+        value={reviewText}
+        onChange={(e) => setReviewText(e.target.value)}
       />
 
       <div className='reviews__button-wrapper'>
@@ -123,4 +124,4 @@ function CommentSection(): ReactElement {
   );
 }
 
-export default CommentSection;
+export default ReviewForm;

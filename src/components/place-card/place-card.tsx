@@ -2,17 +2,34 @@ import { ReactElement } from 'react';
 import { Offer } from '../../types/offer.ts';
 import { getRatingWidth } from '../../utils.ts';
 import {Link} from 'react-router-dom';
-import {ViewMode} from '../../const.ts';
+
+const CardMode = {
+  CitiesView: {
+    name: 'cities',
+    width: 260,
+    height: 200,
+  },
+  FavoritesView: {
+    name: 'favorites',
+    width: 150,
+    height: 110,
+  },
+  OffersView: {
+    name: 'near-places',
+    width: 260,
+    height: 200,
+  },
+};
 
 type PlaceCardProps = {
   data: Offer;
   onHover?: (id: string) => void;
   onLeave?: () => void;
-  viewMode: keyof typeof ViewMode;
+  viewMode: keyof typeof CardMode;
 }
 
 function PlaceCard(props: PlaceCardProps): ReactElement {
-  const { name, width, height } = ViewMode[props.viewMode];
+  const { name, width, height } = CardMode[props.viewMode];
 
   return (
     <article

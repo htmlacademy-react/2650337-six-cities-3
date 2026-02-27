@@ -25,13 +25,13 @@ function App({cardsAmount, offers}: AppProps): ReactElement {
   return (
     <BrowserRouter>
       <Routes>
-
         <Route
           path={AppRoute.MainPage}
           element={
             <MainPage
               offers={offers}
               cardsAmount={cardsAmount}
+              isAuth={isAuth}
             />
           }
         />
@@ -45,21 +45,20 @@ function App({cardsAmount, offers}: AppProps): ReactElement {
           path={AppRoute.FavoritesPage}
           element={
             <PrivateRoute isAuth={isAuth}>
-              <FavoritesPage offers={offers} />
+              <FavoritesPage offers={offers} isAuth={isAuth} />
             </PrivateRoute>
           }
         />
 
         <Route
           path={AppRoute.OfferPage}
-          element={<OfferPage offers={offers} />}
+          element={<OfferPage offers={offers} isAuth={isAuth} />}
         />
 
         <Route
           path='*'
           element={<PageNotFound />}
         />
-
       </Routes>
     </BrowserRouter>
   );

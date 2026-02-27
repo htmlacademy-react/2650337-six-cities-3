@@ -1,6 +1,6 @@
-import {ReactElement, useState} from 'react';
+import {ReactElement, useMemo, useState} from 'react';
 import {Offer} from '../../../types/offer.ts';
-import {MapName, ViewModeNames} from '../../../const.ts';
+import {AuthStatus, MapName} from '../../../const.ts';
 
 import PlaceCardList from '../../place-card/place-card-list.tsx';
 import Map from '../../map/map.tsx';
@@ -8,22 +8,25 @@ import Header from '../../layout/header.tsx';
 import UserNav from '../../layout/user-nav.tsx';
 import Locations from './locations.tsx';
 import PlacesSorting from './places-sorting.tsx';
+import {getRandomCards} from '../../../utils.ts';
 
 type MainPageProps = {
   cardsAmount: number;
   offers: Offer[];
+  isAuth: AuthStatus;
 }
 
-function MainPage({offers, cardsAmount}: MainPageProps): ReactElement {
+function MainPage({offers, cardsAmount, isAuth}: MainPageProps): ReactElement {
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
   const handleCardLeave = () => setActiveOfferId(null);
+  const cards = useMemo(() => getRandomCards(offers, cardsAmount), [offers, cardsAmount]);
 
   return (
     <div className='page page--gray page--main'>
 
       <header className='header'>
         <div className='container'>
-          <Header rightSlot={<UserNav />} />
+          <Header rightSlot={<UserNav isAuth={isAuth}/>} />
         </div>
       </header>
 
@@ -44,17 +47,20 @@ function MainPage({offers, cardsAmount}: MainPageProps): ReactElement {
               <PlacesSorting />
 
               <PlaceCardList
-                cardsAmount={cardsAmount}
-                offers={offers}
+                offers={cards}
                 onCardHover={setActiveOfferId}
                 onCardLeave={handleCardLeave}
-                viewMode={ViewModeNames.Cities}
               />
 
             </section>
 
             <div className='cities__right-section'>
-              <Map activeOfferId={activeOfferId} mapName={MapName.Cities}/>
+              <Map
+                offers={cards}
+                activeOfferId={activeOfferId}
+                mapName={MapName.Cities}
+                isHoverActive
+              />
             </div>
 
           </div>
