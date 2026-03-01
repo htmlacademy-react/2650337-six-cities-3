@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: Download build
-        uses: dawidd6/action-download-artifact@v2
+        uses: dawidd6/store-download-artifact@v2
         with:
           name: actions_artifacts
           workflow: ${{ github.event.workflow_run.workflow_id }}
@@ -27,7 +27,7 @@ jobs:
           echo "BUILD_URL=$(echo ${{ github.repository }} | sed -r 's/\//\.github\.io\//g')" >> $GITHUB_ENV
 
       - name: Deploy build to Github Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+        uses: JamesIves/github-pages-deploy-store@v4
         with:
           folder: dist
           clean: true
