@@ -2,13 +2,14 @@ import {ReactElement, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {Offer} from '../../../types/offer.ts';
 import {MapName, CardView, AuthStatus} from '../../../const.ts';
+import {MockReviews} from '../../../mock/mock-reviews.ts';
 
 import Header from '../../layout/header.tsx';
 import UserNav from '../../layout/user-nav.tsx';
 import PlaceCard from '../../place-card/place-card.tsx';
 import Map from '../../map/map.tsx';
 import OfferInfo from './offer-info.tsx';
-import OfferReviews from './offer-reviews.tsx';
+import ReviewsList from './reviews-list.tsx';
 import OfferGallery from './offer-gallery.tsx';
 
 type OfferPageProps = {
@@ -46,7 +47,7 @@ function OfferPage({offers, isAuth}: OfferPageProps): ReactElement {
 
               <OfferInfo/>
 
-              <OfferReviews />
+              <ReviewsList reviews={MockReviews} />
 
             </div>
           </div>
