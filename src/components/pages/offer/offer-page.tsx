@@ -1,6 +1,7 @@
-import {ReactElement, useState} from 'react';
+import {ReactElement, useState, useMemo} from 'react';
 import {useParams} from 'react-router-dom';
-import {Offer} from '../../../types/offer.ts';
+import {useSelector} from 'react-redux';
+
 import {MapName, CardView, AuthStatus} from '../../../const.ts';
 import {MockReviews} from '../../../mock/mock-reviews.ts';
 
@@ -11,16 +12,22 @@ import Map from '../../map/map.tsx';
 import OfferInfo from './offer-info.tsx';
 import ReviewsList from './reviews-list.tsx';
 import OfferGallery from './offer-gallery.tsx';
+import {RootState} from '../../../store';
 
 type OfferPageProps = {
-  offers: Offer[];
   isAuth: AuthStatus;
 }
 
-function OfferPage({offers, isAuth}: OfferPageProps): ReactElement {
+function OfferPage({isAuth}: OfferPageProps): ReactElement {
   const {id} = useParams<{ id: string }>();
-  const offer = offers.find((o) => o.id === id);
-  const nearbyPlaces = offers.slice(0, 3);
+  const offers = useSelector((state: RootState) => state.offers);
+
+  const offer = useMemo(
+    () => offers.find((o) => o.id === id),
+    [offers, id]
+  );
+
+  const nearbyPlaces = useMemo(() => offers.slice(0, 3), [offers]);
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
 
   if (!offer) {

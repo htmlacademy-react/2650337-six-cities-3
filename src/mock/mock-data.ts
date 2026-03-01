@@ -1,12 +1,12 @@
 import { Offer } from '../types/offer.ts';
 import {CITIES} from '../const.ts';
 
-const cityParis = CITIES.find((city) => city.name === 'Paris');
-const cityCologne = CITIES.find((city) => city.name === 'Cologne');
-const cityBrussels = CITIES.find((city) => city.name === 'Brussels');
-const cityAmsterdam = CITIES.find((city) => city.name === 'Amsterdam');
-const cityHamburg = CITIES.find((city) => city.name === 'Hamburg');
-const cityDusseldorf = CITIES.find((city) => city.name === 'Dusseldorf');
+const cityParis = CITIES.find((city) => city.name === 'Paris')!;
+const cityCologne = CITIES.find((city) => city.name === 'Cologne')!;
+const cityBrussels = CITIES.find((city) => city.name === 'Brussels')!;
+const cityAmsterdam = CITIES.find((city) => city.name === 'Amsterdam')!;
+const cityHamburg = CITIES.find((city) => city.name === 'Hamburg')!;
+const cityDusseldorf = CITIES.find((city) => city.name === 'Dusseldorf')!;
 
 export const mockData: Offer[] = [
   {
@@ -16,8 +16,8 @@ export const mockData: Offer[] = [
     'price': 120,
     'city': cityParis,
     'location': {
-      'latitude': 52.3909553943508,
-      'longitude': 4.85309666406198,
+      'latitude': 48.8649553943508,
+      'longitude': 2.34909666406198,
       'zoom': 8
     },
     'isFavorite': true,
@@ -48,8 +48,8 @@ export const mockData: Offer[] = [
     'price': 80,
     'city': cityBrussels,
     'location': {
-      'latitude': 52.3909553943508,
-      'longitude': 4.929309666406198,
+      'latitude': 50.8509553943508,
+      'longitude': 4.351309666406198,
       'zoom': 8
     },
     'isFavorite': true,
@@ -64,8 +64,8 @@ export const mockData: Offer[] = [
     'price': 1200,
     'city': cityCologne,
     'location': {
-      'latitude': 52.3809553943508,
-      'longitude':  4.939309666406198,
+      'latitude': 50.9409553943508,
+      'longitude': 6.960309666406198,
       'zoom': 8
     },
     'isFavorite': false,
@@ -80,8 +80,8 @@ export const mockData: Offer[] = [
     'price': 145,
     'city': cityHamburg,
     'location': {
-      'latitude': 52.3712345678901,
-      'longitude': 4.86123456789012,
+      'latitude': 53.5512345678901,
+      'longitude': 9.99123456789012,
       'zoom': 8
     },
     'isFavorite': true,
@@ -96,8 +96,8 @@ export const mockData: Offer[] = [
     'price': 98,
     'city': cityDusseldorf,
     'location': {
-      'latitude': 52.3645678901234,
-      'longitude':  4.87234567890123,
+      'latitude': 51.2245678901234,
+      'longitude': 6.78234567890123,
       'zoom': 8
     },
     'isFavorite': true,
@@ -112,8 +112,8 @@ export const mockData: Offer[] = [
     'price': 220,
     'city': cityDusseldorf,
     'location': {
-      'latitude': 52.3589012345678,
-      'longitude': 4.88345678901234,
+      'latitude': 51.2389012345678,
+      'longitude': 6.77345678901234,
       'zoom': 8
     },
     'isFavorite': true,
@@ -128,8 +128,8 @@ export const mockData: Offer[] = [
     'price': 320,
     'city': cityCologne,
     'location': {
-      'latitude': 52.3923456789012,
-      'longitude': 4.89456789012345,
+      'latitude': 50.9323456789012,
+      'longitude': 6.94456789012345,
       'zoom': 8
     },
     'isFavorite': false,
@@ -144,8 +144,8 @@ export const mockData: Offer[] = [
     'price': 1456,
     'city': cityParis,
     'location': {
-      'latitude': 52.3876543210987,
-      'longitude': 4.90567890123456,
+      'latitude': 48.8576543210987,
+      'longitude': 2.35567890123456,
       'zoom': 8
     },
     'isFavorite': true,
@@ -160,8 +160,8 @@ export const mockData: Offer[] = [
     'price': 346,
     'city' : cityBrussels,
     'location': {
-      'latitude': 52.3798765432109,
-      'longitude': 4.91678901234567,
+      'latitude': 50.8598765432109,
+      'longitude': 4.36178901234567,
       'zoom': 8
     },
     'isFavorite': false,
@@ -192,8 +192,8 @@ export const mockData: Offer[] = [
     'price': 112,
     'city': cityCologne,
     'location': {
-      'latitude': 52.3956789012345,
-      'longitude': 4.93890123456789,
+      'latitude': 50.9456789012345,
+      'longitude': 6.95890123456789,
       'zoom': 8
     },
     'isFavorite': true,
@@ -224,15 +224,14 @@ export const mockData: Offer[] = [
     'price': 514,
     'city': cityParis,
     'location': {
-      'latitude': 52.3690987654321,
-      'longitude': 4.85890123456789,
+      'latitude': 48.8590987654321,
+      'longitude': 2.34890123456789,
       'zoom': 8
     },
     'isFavorite': false,
     'isPremium': true,
     'rating': 4,
     'previewImage': 'https://15.design.htmlacademy.pro/static/hotel/8.jpg',
-
   },
   {
     'id': '0f9a3c7d-5b2e-4e86-b1d4-7c3a9f2e6b85',
@@ -241,8 +240,8 @@ export const mockData: Offer[] = [
     'price': 178,
     'city': cityBrussels,
     'location': {
-      'latitude': 52.3543210987654,
-      'longitude': 4.86789012345678,
+      'latitude': 50.8443210987654,
+      'longitude': 4.32789012345678,
       'zoom': 8
     },
     'isFavorite': false,
@@ -257,8 +256,8 @@ export const mockData: Offer[] = [
     'price': 56,
     'city': cityHamburg,
     'location': {
-      'latitude': 52.3621098765432,
-      'longitude': 4.87690123456789,
+      'latitude': 53.5621098765432,
+      'longitude': 9.97690123456789,
       'zoom': 8
     },
     'isFavorite': false,
@@ -273,8 +272,8 @@ export const mockData: Offer[] = [
     'price': 165,
     'city': cityDusseldorf,
     'location': {
-      'latitude': 52.3621098765432,
-      'longitude': 4.87690123456789,
+      'latitude': 51.2321098765432,
+      'longitude': 6.77690123456789,
       'zoom': 8
     },
     'isFavorite': false,
@@ -289,8 +288,8 @@ export const mockData: Offer[] = [
     'price': 212,
     'city': cityCologne,
     'location': {
-      'latitude': 52.3709876543210,
-      'longitude': 4.88501234567890,
+      'latitude': 50.9309876543210,
+      'longitude': 6.96501234567890,
       'zoom': 8
     },
     'isFavorite': false,
@@ -305,8 +304,8 @@ export const mockData: Offer[] = [
     'price': 267,
     'city': cityHamburg,
     'location': {
-      'latitude': 52.3787654321098,
-      'longitude': 4.89312345678901,
+      'latitude': 53.5487654321098,
+      'longitude': 9.99312345678901,
       'zoom': 8
     },
     'isFavorite': false,
@@ -321,8 +320,8 @@ export const mockData: Offer[] = [
     'price': 2140,
     'city': cityHamburg,
     'location': {
-      'latitude': 52.3865432109876,
-      'longitude': 4.90123456789012,
+      'latitude': 53.5565432109876,
+      'longitude': 9.99123456789012,
       'zoom': 8
     },
     'isFavorite': true,
@@ -347,3 +346,4 @@ export const mockData: Offer[] = [
     'previewImage': 'https://15.design.htmlacademy.pro/static/hotel/1.jpg'
   }
 ];
+

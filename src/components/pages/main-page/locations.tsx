@@ -1,48 +1,28 @@
 import {ReactElement} from 'react';
-import {Link} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+
+import Location from './location.tsx';
+import {CITIES} from '../../../const.ts';
+import {RootState} from '../../../store';
+import {changeCity} from '../../../store/action.ts';
 
 function Locations(): ReactElement {
+  const dispatch = useDispatch();
+  const activeCity = useSelector((state: RootState) => state.city);
+
   return (
     <section className='locations container'>
 
       <ul className='locations__list tabs__list'>
 
-        <li className='locations__item'>
-          <Link className='locations__item-link tabs__item' to='#'>
-            <span>Paris</span>
-          </Link>
-        </li>
-
-        <li className='locations__item'>
-          <Link className='locations__item-link tabs__item' to='#'>
-            <span>Cologne</span>
-          </Link>
-        </li>
-
-        <li className='locations__item'>
-          <Link className='locations__item-link tabs__item' to='#'>
-            <span>Brussels</span>
-          </Link>
-        </li>
-
-        <li className='locations__item'>
-          <Link className='locations__item-link tabs__item tabs__item--active' to='#'>
-            <span>Amsterdam</span>
-          </Link>
-        </li>
-
-        <li className='locations__item'>
-          <Link className='locations__item-link tabs__item' to='#'>
-            <span>Hamburg</span>
-          </Link>
-        </li>
-
-        <li className='locations__item'>
-          <Link className='locations__item-link tabs__item' to='#'>
-            <span>Dusseldorf</span>
-          </Link>
-        </li>
-
+        {CITIES.map((city) => (
+          <Location
+            key={city.name}
+            city={city}
+            isActive={city.name === activeCity.name}
+            onClick={() => dispatch(changeCity(city))}
+          />
+        ))}
       </ul>
 
     </section>
