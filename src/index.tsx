@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app.tsx';
-import { Setting } from './const.ts';
-import {mockData} from './mock/mock-data.ts';
 import 'leaflet/dist/leaflet.css';
+import {Provider} from 'react-redux';
+import {store} from './store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,8 +11,10 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
+    <Provider store={store}>
 
-    <App offers={mockData} cardsAmount={Setting.cardsAmount} />
+      <App />
+    </Provider>
 
   </React.StrictMode>
 );

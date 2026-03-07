@@ -1,5 +1,6 @@
-import { ReactElement } from 'react';
+import {ReactElement, useEffect} from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {useDispatch} from 'react-redux';
 
 import MainPage from '../pages/main-page/main-page.tsx';
 import LoginPage from '../pages/login/login-page.tsx';
@@ -9,31 +10,26 @@ import PageNotFound from '../pages/not-found/page-not-found.tsx';
 
 import PrivateRoute from '../private-route/private-route.tsx';
 
-import {Offer} from '../../types/offer.ts';
-
 import {AppRoute, AuthStatus} from '../../const.ts';
+import {mockData} from '../../mock/mock-data.ts';
+import {setOffers} from '../../store/action.ts';
 
-type AppProps = {
-  cardsAmount: number;
-  offers: Offer[];
-}
 
-function App({cardsAmount, offers}: AppProps): ReactElement {
+function App(): ReactElement {
   // const isAuth = AuthStatus.NoAuth;
   const isAuth = AuthStatus.Auth;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setOffers(mockData));
+  }, [dispatch]);
 
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.MainPage}
-          element={
-            <MainPage
-              offers={offers}
-              cardsAmount={cardsAmount}
-              isAuth={isAuth}
-            />
-          }
+          element={ <MainPage isAuth={isAuth} /> }
         />
 
         <Route
@@ -45,14 +41,14 @@ function App({cardsAmount, offers}: AppProps): ReactElement {
           path={AppRoute.FavoritesPage}
           element={
             <PrivateRoute isAuth={isAuth}>
-              <FavoritesPage offers={offers} isAuth={isAuth} />
+              <FavoritesPage isAuth={isAuth} />
             </PrivateRoute>
           }
         />
 
         <Route
           path={AppRoute.OfferPage}
-          element={<OfferPage offers={offers} isAuth={isAuth} />}
+          element={<OfferPage isAuth={isAuth} />}
         />
 
         <Route

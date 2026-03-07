@@ -1,6 +1,7 @@
 import {ReactElement, useMemo, useState} from 'react';
-import {Offer} from '../../../types/offer.ts';
+import {useSelector} from 'react-redux';
 import {AuthStatus, MapName} from '../../../const.ts';
+import {RootState} from '../../../store';
 
 import PlaceCardList from '../../place-card/place-card-list.tsx';
 import Map from '../../map/map.tsx';
@@ -8,18 +9,20 @@ import Header from '../../layout/header.tsx';
 import UserNav from '../../layout/user-nav.tsx';
 import Locations from './locations.tsx';
 import PlacesSorting from './places-sorting.tsx';
-import {getRandomCards} from '../../../utils.ts';
-
 type MainPageProps = {
-  cardsAmount: number;
-  offers: Offer[];
   isAuth: AuthStatus;
 }
 
-function MainPage({offers, cardsAmount, isAuth}: MainPageProps): ReactElement {
+function MainPage({isAuth}: MainPageProps): ReactElement {
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+
+  const offers = useSelector((state: RootState) => state.offers);
+  const city = useSelector((state: RootState) => state.city);
+  const filteredOffers = useMemo(
+    () => offers.filter((offer) => offer.city.name === city.name),
+    [offers, city.name]
+  );
   const handleCardLeave = () => setActiveOfferId(null);
-  const cards = useMemo(() => getRandomCards(offers, cardsAmount), [offers, cardsAmount]);
 
   return (
     <div className='page page--gray page--main'>
@@ -42,12 +45,12 @@ function MainPage({offers, cardsAmount, isAuth}: MainPageProps): ReactElement {
 
             <section className='cities__places places'>
               <h2 className='visually-hidden'>Places</h2>
-              <b className='places__found'>312 places to stay in Amsterdam</b>
+              <b className='places__found'>{filteredOffers.length} places to stay in {city.name}</b>
 
               <PlacesSorting />
 
               <PlaceCardList
-                offers={cards}
+                offers={filteredOffers}
                 onCardHover={setActiveOfferId}
                 onCardLeave={handleCardLeave}
               />
@@ -56,7 +59,7 @@ function MainPage({offers, cardsAmount, isAuth}: MainPageProps): ReactElement {
 
             <div className='cities__right-section'>
               <Map
-                offers={cards}
+                offers={filteredOffers}
                 activeOfferId={activeOfferId}
                 mapName={MapName.Cities}
                 isHoverActive

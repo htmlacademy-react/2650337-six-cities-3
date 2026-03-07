@@ -1,20 +1,21 @@
 import {ReactElement} from 'react';
 import {Link} from 'react-router-dom';
-import {Offer} from '../../../types/offer.ts';
 import {AppRoute, AuthStatus} from '../../../const.ts';
 
 import Header from '../../layout/header.tsx';
 import UserNav from '../../layout/user-nav.tsx';
 import FavoritesList from './favorites-list.tsx';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../../store';
 
 type FavoritesPageProps = {
-  offers: Offer[];
   isAuth: AuthStatus;
 }
 
-function FavoritesPage({offers, isAuth}: FavoritesPageProps): ReactElement {
-  // const favorites = offers.filter((offer) => offer.isFavorite);
-  const favorites = offers.slice(0, 3);
+function FavoritesPage({isAuth}: FavoritesPageProps): ReactElement {
+  const offers = useSelector((state: RootState) => state.offers);
+  const favorites = offers.filter((offer) => offer.isFavorite);
+  // const favorites = offers.slice(0, 3);
 
   return (
     <div className='page'>

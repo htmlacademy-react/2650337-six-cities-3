@@ -4,12 +4,12 @@ import {Location} from './location.ts';
 export type Offer = {
     id: string;
     title: string;
-    type?: string;
+    type: string;
     price: number;
-    city?: City;
+    city: City;
     location: Location;
-    isFavorite?: boolean;
-    isPremium?: boolean;
+    isFavorite: boolean;
+    isPremium: boolean;
     rating: number;
     previewImage: string;
 }
