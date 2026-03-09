@@ -22,8 +22,6 @@ function MainPage({isAuth}: MainPageProps): ReactElement {
     () => offers.filter((offer) => offer.city.name === city.name),
     [offers, city.name]
   );
-  const handleCardLeave = () => setActiveOfferId(null);
-
   return (
     <div className='page page--gray page--main'>
 
@@ -51,8 +49,7 @@ function MainPage({isAuth}: MainPageProps): ReactElement {
 
               <PlaceCardList
                 offers={filteredOffers}
-                onCardHover={setActiveOfferId}
-                onCardLeave={handleCardLeave}
+                onHoverToggle={setActiveOfferId}
               />
 
             </section>
@@ -60,9 +57,8 @@ function MainPage({isAuth}: MainPageProps): ReactElement {
             <div className='cities__right-section'>
               <Map
                 offers={filteredOffers}
-                activeOfferId={activeOfferId}
+                selectedOfferId={activeOfferId}
                 mapName={MapName.Cities}
-                isHoverActive
               />
             </div>
 

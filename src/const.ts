@@ -83,3 +83,7 @@ export enum ReviewLimits {
   Min = 50,
   Max = 300,
 }
+
+export enum NearbyLimits {
+  Max = 3,
+}

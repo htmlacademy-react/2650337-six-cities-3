@@ -23,8 +23,9 @@ const CardMode = {
 
 type PlaceCardProps = {
   data: Offer;
-  onHover?: (id: string) => void;
-  onLeave?: () => void;
+  onHoverToggle?: (id: string | null) => void;
+  // onHover?: (id: string) => void;
+  // onLeave?: () => void;
   viewMode: keyof typeof CardMode;
 }
 
@@ -34,8 +35,8 @@ function PlaceCard(props: PlaceCardProps): ReactElement {
   return (
     <article
       className={`${name}__card place-card`}
-      onMouseEnter={() => props.onHover?.(props.data.id)}
-      onMouseLeave={() => props.onLeave?.()}
+      onMouseEnter={() => props.onHoverToggle?.(props.data.id)}
+      onMouseLeave={() => props.onHoverToggle?.(null)}
     >
 
       <div className='place-card__mark'>

@@ -5,11 +5,10 @@ import {CardView} from '../../const.ts';
 
 type PlaceCardListProps = {
   offers: Offer[];
-  onCardHover: (id: string) => void;
-  onCardLeave: () => void;
+  onHoverToggle: (id: string | null) => void;
 }
 
-function PlaceCardList({ offers, onCardHover, onCardLeave}: PlaceCardListProps): ReactElement {
+function PlaceCardList({ offers, onHoverToggle }: PlaceCardListProps): ReactElement {
 
   return (
     <div className='cities__places-list places__list tabs__content'>
@@ -17,8 +16,7 @@ function PlaceCardList({ offers, onCardHover, onCardLeave}: PlaceCardListProps):
         <PlaceCard
           key={card.id}
           data={card}
-          onHover={onCardHover}
-          onLeave={onCardLeave}
+          onHoverToggle={onHoverToggle}
           viewMode={CardView.Cities}
         />
       ))}
