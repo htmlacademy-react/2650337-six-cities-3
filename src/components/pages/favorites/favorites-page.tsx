@@ -6,16 +6,16 @@ import Header from '../../layout/header.tsx';
 import UserNav from '../../layout/user-nav.tsx';
 import FavoritesList from './favorites-list.tsx';
 import {useSelector} from 'react-redux';
-import {RootState} from '../../../store';
+import {getFavorites} from '../../../store/selectors.ts';
 
 type FavoritesPageProps = {
   isAuth: AuthStatus;
 }
 
 function FavoritesPage({isAuth}: FavoritesPageProps): ReactElement {
-  const offers = useSelector((state: RootState) => state.offers);
-  const favorites = offers.filter((offer) => offer.isFavorite);
-  // const favorites = offers.slice(0, 3);
+
+  const favorites = useSelector(getFavorites);
+
 
   return (
     <div className='page'>

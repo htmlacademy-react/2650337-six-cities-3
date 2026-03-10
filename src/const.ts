@@ -83,3 +83,14 @@ export enum ReviewLimits {
   Min = 50,
   Max = 300,
 }
+
+export enum NearbyLimits {
+  Max = 3,
+}
+
+export enum SortingType {
+  Popular = 'Popular',
+  PriceLowToHigh = 'Price: low to high',
+  PriceHighToLow = 'Price: high to low',
+  TopRatedFirst = 'Top rated first',
+}

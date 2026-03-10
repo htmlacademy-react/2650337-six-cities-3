@@ -6,9 +6,8 @@ import pinActive from '../../assets/img/pin-active.svg';
 
 type MapProps = {
   offers: Offer[];
-  activeOfferId: string | null;
+  selectedOfferId: string | null;
   mapName: string;
-  isHoverActive: boolean;
 };
 
 const defaultIcon = leaflet.icon({
@@ -23,7 +22,7 @@ const activeIcon = leaflet.icon({
   iconAnchor: [13, 39],
 });
 
-function Map({ offers, activeOfferId, mapName, isHoverActive }: MapProps): ReactElement {
+function Map({ offers, selectedOfferId, mapName }: MapProps): ReactElement {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const leafletMapRef = useRef<LeafletMap | null>(null);
   const markersLayerRef = useRef<LayerGroup | null>(null);
@@ -67,15 +66,15 @@ function Map({ offers, activeOfferId, mapName, isHoverActive }: MapProps): React
         .marker(
           [offer.location.latitude, offer.location.longitude],
           {
-            icon: isHoverActive && offer.id === activeOfferId ? activeIcon : defaultIcon,
+            icon: offer.id === selectedOfferId ? activeIcon : defaultIcon,
           }
         )
         .addTo(layer);
     });
-  }, [offers, activeOfferId, isHoverActive]);
+  }, [offers, selectedOfferId]);
 
   return (
-    <section className={`${mapName}__map map`} data-active-offer-id={activeOfferId ?? ''}>
+    <section className={`${mapName}__map map`} data-active-offer-id={selectedOfferId ?? ''}>
       <div ref={mapRef} style={{ height: '100%', minHeight: 500 }} />
     </section>
   );

@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Location from './location.tsx';
 import {CITIES} from '../../../const.ts';
 import {RootState} from '../../../store';
-import {changeCity} from '../../../store/action.ts';
+import {setActiveCity} from '../../../store/action.ts';
 
 function Locations(): ReactElement {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ function Locations(): ReactElement {
             key={city.name}
             city={city}
             isActive={city.name === activeCity.name}
-            onClick={() => dispatch(changeCity(city))}
+            onClick={() => dispatch(setActiveCity(city))}
           />
         ))}
       </ul>

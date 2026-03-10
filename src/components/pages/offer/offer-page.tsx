@@ -1,8 +1,8 @@
-import {ReactElement, useState, useMemo} from 'react';
+import {ReactElement} from 'react';
 import {useParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
-import {MapName, CardView, AuthStatus} from '../../../const.ts';
+import {MapName, CardView, AuthStatus, NearbyLimits} from '../../../const.ts';
 import {MockReviews} from '../../../mock/mock-reviews.ts';
 
 import Header from '../../layout/header.tsx';
@@ -22,13 +22,13 @@ function OfferPage({isAuth}: OfferPageProps): ReactElement {
   const {id} = useParams<{ id: string }>();
   const offers = useSelector((state: RootState) => state.offers);
 
-  const offer = useMemo(
-    () => offers.find((o) => o.id === id),
-    [offers, id]
-  );
+  const offer = offers.find((o) => o.id === id);
 
-  const nearbyPlaces = useMemo(() => offers.slice(0, 3), [offers]);
-  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+  const nearbyPlaces = offer
+    ? offers.filter((place) => place.id !== offer.id).slice(0, NearbyLimits.Max)
+    : [];
+
+  const mapOffers = offer ? [offer, ...nearbyPlaces] : [];
 
   if (!offer) {
     return <div>Offer not found</div>;
@@ -60,10 +60,9 @@ function OfferPage({isAuth}: OfferPageProps): ReactElement {
           </div>
 
           <Map
-            offers={nearbyPlaces}
-            activeOfferId={activeOfferId}
+            offers={mapOffers}
+            selectedOfferId={offer.id}
             mapName={MapName.Offers}
-            isHoverActive={false}
           />
 
         </section>
@@ -77,8 +76,6 @@ function OfferPage({isAuth}: OfferPageProps): ReactElement {
                 <PlaceCard
                   key={place.id}
                   data={place}
-                  onHover={setActiveOfferId}
-                  onLeave={() => setActiveOfferId(null)}
                   viewMode={CardView.Offers}
                 />
               ))}
