@@ -20,7 +20,7 @@ type OfferPageProps = {
 
 function OfferPage({isAuth}: OfferPageProps): ReactElement {
   const {id} = useParams<{ id: string }>();
-  const offers = useSelector((state: RootState) => state.offers);
+  const offers = useSelector((state: RootState) => state.offers.offers);
 
   const offer = offers.find((o) => o.id === id);
 
