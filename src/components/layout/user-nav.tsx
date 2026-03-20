@@ -1,6 +1,6 @@
 import {ReactElement} from 'react';
 import {Link} from 'react-router-dom';
-import {AuthStatus} from '../../const.ts';
+import {AuthStatus, AppRoute} from '../../const.ts';
 
 type UserNavProps = {
   isAuth: AuthStatus;
@@ -36,11 +36,11 @@ function UserNav({isAuth}: UserNavProps):ReactElement {
     <nav className='header__nav'>
       <ul className='header__nav-list'>
         <li className='header__nav-item user'>
-          <a className='header__nav-link header__nav-link--profile' href='#'>
+          <Link className='header__nav-link header__nav-link--profile' to={AppRoute.LoginPage}>
             <div className='header__avatar-wrapper user__avatar-wrapper'>
             </div>
             <span className='header__login'>Sign in</span>
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>

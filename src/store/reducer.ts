@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {PayloadAction} from '@reduxjs/toolkit';
-import { CITIES } from '../const';
+import { CITIES, AuthStatus } from '../const';
 import { Offer } from '../types/offer';
 import {fetchOffers} from './api-actions.ts';
 
@@ -8,12 +8,14 @@ export type State = {
   city: typeof CITIES[number];
   offers: Offer[];
   isLoading: boolean;
+  authorizationStatus: AuthStatus;
 };
 
 const initialState: State = {
   city: CITIES[0],
   offers: [],
   isLoading: false,
+  authorizationStatus: AuthStatus.Unknown,
 };
 
 const offerSlice = createSlice({
@@ -22,6 +24,9 @@ const offerSlice = createSlice({
   reducers: {
     setActiveCity(state, action: PayloadAction<typeof CITIES[number]>) {
       state.city = action.payload;
+    },
+    setAuthorizationStatus(state, action: PayloadAction<AuthStatus>) {
+      state.authorizationStatus = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -38,5 +43,5 @@ const offerSlice = createSlice({
   },
 });
 
-export const {setActiveCity} = offerSlice.actions;
+export const {setActiveCity, setAuthorizationStatus} = offerSlice.actions;
 export default offerSlice.reducer;
