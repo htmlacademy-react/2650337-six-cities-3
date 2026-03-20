@@ -36,10 +36,11 @@ function PlaceCard(props: PlaceCardProps): ReactElement {
       onMouseEnter={() => props.onHoverToggle?.(props.data.id)}
       onMouseLeave={() => props.onHoverToggle?.(null)}
     >
-
-      <div className='place-card__mark'>
-        <span>Premium</span>
-      </div>
+      {props.data.isPremium && (
+        <div className='place-card__mark'>
+          <span>Premium</span>
+        </div>
+      )}
 
       <div className={`${name}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${props.data.id}`}>
