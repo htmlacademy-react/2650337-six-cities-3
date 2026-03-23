@@ -1,6 +1,12 @@
 import {ReactElement} from 'react';
+import {DetailedOffer} from '../../../types/offer.ts';
+import {getRatingWidth} from '../../../utils.ts';
 
-function OfferInfo(): ReactElement {
+type OfferInfoProps = {
+  data: DetailedOffer;
+}
+function OfferInfo({data}: OfferInfoProps): ReactElement {
+  const host = data.host;
   return (
     <>
       <div className='offer__mark'>
@@ -10,7 +16,7 @@ function OfferInfo(): ReactElement {
       <div className='offer__name-wrapper'>
 
         <h1 className='offer__name'>
-          Beautiful &amp; luxurious studio at great location
+          {data.title}
         </h1>
 
         <button className='offer__bookmark-button button' type='button'>
@@ -25,22 +31,22 @@ function OfferInfo(): ReactElement {
       <div className='offer__rating rating'>
 
         <div className='offer__stars rating__stars'>
-          <span style={{width: '80%'}}></span>
+          <span style={{width: getRatingWidth(data)}}></span>
           <span className='visually-hidden'>Rating</span>
         </div>
 
-        <span className='offer__rating-value rating__value'>4.8</span>
+        <span className='offer__rating-value rating__value'>{data.rating}</span>
 
       </div>
 
       <ul className='offer__features'>
-        <li className='offer__feature offer__feature--entire'>Apartment</li>
-        <li className='offer__feature offer__feature--bedrooms'>3 Bedrooms</li>
-        <li className='offer__feature offer__feature--adults'>Max 4 adults</li>
+        <li className='offer__feature offer__feature--entire'>{data.type}</li>
+        <li className='offer__feature offer__feature--bedrooms'>{data.bedrooms === 1 ? `${data.bedrooms} Bedroom` : `${data.bedrooms} Bedrooms`}</li>
+        <li className='offer__feature offer__feature--adults'>Max {data.maxAdults} adults</li>
       </ul>
 
       <div className='offer__price'>
-        <b className='offer__price-value'>&euro;120</b>
+        <b className='offer__price-value'>&euro;{data.price}</b>
         <span className='offer__price-text'>&nbsp;night</span>
       </div>
 
@@ -48,16 +54,9 @@ function OfferInfo(): ReactElement {
         <h2 className='offer__inside-title'>What&apos;s inside</h2>
 
         <ul className='offer__inside-list'>
-          <li className='offer__inside-item'>Wi-Fi</li>
-          <li className='offer__inside-item'>Washing machine</li>
-          <li className='offer__inside-item'>Towels</li>
-          <li className='offer__inside-item'>Heating</li>
-          <li className='offer__inside-item'>Coffee machine</li>
-          <li className='offer__inside-item'>Baby seat</li>
-          <li className='offer__inside-item'>Kitchen</li>
-          <li className='offer__inside-item'>Dishwasher</li>
-          <li className='offer__inside-item'>Cabel TV</li>
-          <li className='offer__inside-item'>Fridge</li>
+          {data.goods.map((good) => (
+            <li key={good} className="offer__inside-item">{good}</li>
+          ))}
         </ul>
 
       </div>
@@ -68,23 +67,19 @@ function OfferInfo(): ReactElement {
         <div className='offer__host-user user'>
 
           <div className='offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper'>
-            <img className='offer__avatar user__avatar' src='/img/avatar-angelina.jpg' width='74' height='74' alt='Host avatar'/>
+            <img className='offer__avatar user__avatar' src={host.avatarUrl} width='74' height='74' alt='Host avatar'/>
           </div>
 
-          <span className='offer__user-name'>Angelina</span>
-          <span className='offer__user-status'>Pro</span>
+          <span className='offer__user-name'>{host.name}</span>
+          {host.isPro ? <span className="offer__user-status">Pro</span> : null}
 
         </div>
 
         <div className='offer__description'>
           <p className='offer__text'>
-            A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The
-            building is green and from 18th century.
+            {data.description}
           </p>
-          <p className='offer__text'>
-            An independent House, strategically located between Rembrand Square and National Opera, but where
-            the bustle of the city comes to rest in this alley flowery and colorful.
-          </p>
+
         </div>
 
       </div>

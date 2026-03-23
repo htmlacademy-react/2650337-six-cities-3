@@ -1,13 +1,18 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {PayloadAction} from '@reduxjs/toolkit';
 import { CITIES, AuthStatus } from '../const';
-import { Offer } from '../types/offer';
-import {fetchOffers} from './api-actions.ts';
+import {DetailedOffer, Offer} from '../types/offer';
+import {fetchDetailedOffer, fetchNearbyOffers, fetchOffers, fetchReviews, postReview} from './api-actions.ts';
+import {Review} from '../types/review.ts';
 
 export type State = {
   city: typeof CITIES[number];
   offers: Offer[];
+  currentOffer: DetailedOffer | null;
+  nearbyOffers: Offer[];
+  reviews: Review[];
   isLoading: boolean;
+  isOfferLoading: boolean;
   authorizationStatus: AuthStatus;
   userEmail: string | null;
   loginError: string | null;
@@ -16,7 +21,11 @@ export type State = {
 const initialState: State = {
   city: CITIES[0],
   offers: [],
+  currentOffer: null,
+  nearbyOffers: [],
+  reviews: [],
   isLoading: false,
+  isOfferLoading: false,
   authorizationStatus: AuthStatus.Unknown,
   userEmail: null,
   loginError: null,
@@ -49,6 +58,25 @@ const offerSlice = createSlice({
       })
       .addCase(fetchOffers.rejected, (state) => {
         state.isLoading = false;
+      })
+      .addCase(fetchDetailedOffer.pending, (state) => {
+        state.isOfferLoading = true;
+      })
+      .addCase(fetchDetailedOffer.fulfilled, (state, action) => {
+        state.currentOffer = action.payload;
+        state.isOfferLoading = false;
+      })
+      .addCase(fetchDetailedOffer.rejected, (state) => {
+        state.isOfferLoading = false;
+      })
+      .addCase(fetchNearbyOffers.fulfilled, (state, action) => {
+        state.nearbyOffers = action.payload;
+      })
+      .addCase(fetchReviews.fulfilled, (state, action) => {
+        state.reviews = action.payload;
+      })
+      .addCase(postReview.fulfilled, (state, action) => {
+        state.reviews.push(action.payload);
       });
   },
 });

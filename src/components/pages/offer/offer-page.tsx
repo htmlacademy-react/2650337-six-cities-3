@@ -1,9 +1,11 @@
-import {ReactElement} from 'react';
-import {useParams} from 'react-router-dom';
-import {useSelector} from 'react-redux';
+import {ReactElement, useEffect} from 'react';
+import {useParams, Navigate} from 'react-router-dom';
+import {useSelector, useDispatch} from 'react-redux';
+import {fetchDetailedOffer, fetchNearbyOffers, fetchReviews} from '../../../store/api-actions.ts';
+import {getCurrentOffer, getNearbyOffers, getReviews, getIsOfferLoading} from '../../../store/selectors.ts';
 
-import {MapName, CardView, NearbyLimits} from '../../../const.ts';
-import {MockReviews} from '../../../mock/mock-reviews.ts';
+import {MapName, CardView, NearbyLimits, AppRoute} from '../../../const.ts';
+import Spinner from '../../ui/spinner/spinner.tsx';
 
 import Header from '../../layout/header.tsx';
 import UserNav from '../../layout/user-nav.tsx';
@@ -12,24 +14,33 @@ import Map from '../../map/map.tsx';
 import OfferInfo from './offer-info.tsx';
 import ReviewsList from './reviews-list.tsx';
 import OfferGallery from './offer-gallery.tsx';
-import {RootState} from '../../../store';
+import {AppDispatch, RootState} from '../../../store';
 
 
 function OfferPage(): ReactElement {
   const {id} = useParams<{ id: string }>();
-  const offers = useSelector((state: RootState) => state.offers.offers);
+  const dispatch = useDispatch<AppDispatch>();
+  const currentOffer = useSelector(getCurrentOffer);
+  const reviews = useSelector(getReviews);
+  const nearbyOffers = useSelector(getNearbyOffers).slice(0, NearbyLimits.Max);
+  const isOfferLoading = useSelector(getIsOfferLoading);
 
-  const offer = offers.find((o) => o.id === id);
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchDetailedOffer(id));
+      dispatch(fetchNearbyOffers(id));
+      dispatch(fetchReviews(id));
+    }
+  }, [id, dispatch]);
 
-  const nearbyPlaces = offer
-    ? offers.filter((place) => place.id !== offer.id).slice(0, NearbyLimits.Max)
-    : [];
-
-  const mapOffers = offer ? [offer, ...nearbyPlaces] : [];
   const authorizationStatus = useSelector((state: RootState) => state.offers.authorizationStatus);
 
-  if (!offer) {
-    return <div>Offer not found</div>;
+  if (isOfferLoading) {
+    return <Spinner />;
+  }
+
+  if (!currentOffer || !id) {
+    return <Navigate to={AppRoute.NotFound} />;
   }
 
   return (
@@ -44,24 +55,28 @@ function OfferPage(): ReactElement {
         <section className='offer'>
 
           <div className='offer__gallery-container container'>
-            <OfferGallery />
+            <OfferGallery images={currentOffer.images}/>
           </div>
 
           <div className='offer__container container'>
             <div className='offer__wrapper'>
 
-              <OfferInfo/>
+              <OfferInfo data={currentOffer}/>
 
-              <ReviewsList reviews={MockReviews} />
+              <ReviewsList
+                reviews={reviews}
+                offerId={id}
+                isAuth={authorizationStatus}
+              />
 
             </div>
           </div>
 
           <Map
-            offers={mapOffers}
-            selectedOfferId={offer.id}
+            offers={[currentOffer, ...nearbyOffers]}
+            selectedOfferId={currentOffer.id}
             mapName={MapName.Offers}
-            city={offer.city}
+            city={currentOffer.city}
           />
 
         </section>
@@ -71,7 +86,7 @@ function OfferPage(): ReactElement {
             <h2 className='near-places__title'>Other places in the neighbourhood</h2>
 
             <div className='near-places__list places__list'>
-              {nearbyPlaces.map((place) => (
+              {nearbyOffers.map((place) => (
                 <PlaceCard
                   key={place.id}
                   data={place}

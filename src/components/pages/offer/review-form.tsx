@@ -1,18 +1,48 @@
-import { ReactElement, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import {ReviewLimits} from '../../../const.ts';
+import {useDispatch} from 'react-redux';
+import {AppDispatch} from '../../../store';
+import {postReview} from '../../../store/api-actions.ts';
 
-function ReviewForm(): ReactElement {
+type ReviewFormProps = {
+  offerId: string;
+};
+
+function ReviewForm({offerId}: ReviewFormProps): ReactElement {
 
   const [reviewText, setReviewText] = useState('');
   const [rating, setRating] = useState<number | null>(null);
   const isSubmitDisabled = rating === null || reviewText.length < +ReviewLimits.Min || reviewText.length > +ReviewLimits.Max;
+  const dispatch = useDispatch<AppDispatch>();
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = (evt: React.FormEvent) => {
+    evt.preventDefault();
+    if(rating === null) {
+      return;
+    }
+    setIsSubmitting(true);
+    dispatch(postReview({id: offerId, comment: reviewText, rating}))
+      .then(() => {
+        setReviewText('');
+        setRating(null);
+        setError(null);
+      })
+      .catch(() => {
+        setError('Не удалось отправить отзыв. Попробуйте еще раз');
+      })
+      .finally(() => setIsSubmitting(false));
+
+  };
 
   return (
     <form
       className='reviews__form form'
       action='#'
       method='post'
-      onSubmit={(e) => e.preventDefault()}
+      onSubmit={handleSubmit}
     >
 
       <label className='reviews__label form__label' htmlFor='review'>Your review</label>
@@ -110,11 +140,12 @@ function ReviewForm(): ReactElement {
           To submit review please make sure to set <span className='reviews__star'>rating</span> and describe your stay
           with at least <b className='reviews__text-amount'>{ReviewLimits.Min} characters</b>.
         </p>
+        {error && <p style={{color: 'red'}}>{error}</p>}
 
         <button
           className='reviews__submit form__submit button'
           type='submit'
-          disabled={isSubmitDisabled}
+          disabled={isSubmitDisabled || isSubmitting}
         >
           Submit
         </button>

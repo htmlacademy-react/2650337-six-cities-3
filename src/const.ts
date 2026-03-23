@@ -59,7 +59,8 @@ export enum AppRoute {
   MainPage = '/',
   LoginPage = '/login',
   FavoritesPage = '/favorites',
-  OfferPage = '/offer/:id'
+  OfferPage = '/offer/:id',
+  NotFound = '/404'
 }
 
 export enum AuthStatus {
@@ -86,6 +87,10 @@ export enum ReviewLimits {
 
 export enum NearbyLimits {
   Max = 3,
+}
+
+export enum GalleryLimits {
+  Max = 6,
 }
 
 export enum SortingType {

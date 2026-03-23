@@ -1,9 +1,10 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {Offer} from '../types/offer';
+import {DetailedOffer, Offer} from '../types/offer';
 import {AxiosInstance} from 'axios';
 import {setAuthorizationStatus, setLoginError, setUserEmail} from './reducer.ts';
 import {AuthStatus} from '../const.ts';
 import {AuthData} from '../types/auth.ts';
+import {Review} from '../types/review.ts';
 
 export const fetchOffers = createAsyncThunk<
   Offer[],
@@ -13,6 +14,54 @@ export const fetchOffers = createAsyncThunk<
   'offers/fetchOffers',
   async (_arg, {extra: api}) => {
     const {data} = await api.get<Offer[]>('/offers');
+    return data;
+  }
+);
+
+export const fetchDetailedOffer = createAsyncThunk<
+  DetailedOffer,
+  string,
+  {extra: AxiosInstance}
+>(
+  'offers/fetchDetailedOffer',
+  async (id, {extra: api}) => {
+    const {data} = await api.get<DetailedOffer>(`/offers/${id}`);
+    return data;
+  }
+);
+
+export const fetchNearbyOffers = createAsyncThunk<
+  Offer[],
+  string,
+  {extra: AxiosInstance}
+>(
+  '/offers/fetchNearbyOffers',
+  async (id, {extra: api}) => {
+    const {data} = await api.get<Offer[]>(`/offers/${id}/nearby`);
+    return data;
+  }
+);
+
+export const fetchReviews = createAsyncThunk<
+  Review[],
+  string,
+  {extra: AxiosInstance}
+>(
+  '/reviews/fetchReviews',
+  async (id, {extra: api}) => {
+    const {data} = await api.get<Review[]>(`/comments/${id}`);
+    return data;
+  }
+);
+
+export const postReview = createAsyncThunk<
+  Review,
+  {id: string; comment: string; rating: number},
+  {extra: AxiosInstance}
+>(
+  '/reviews/postReview',
+  async ({id, comment, rating}, {extra: api}) => {
+    const {data} = await api.post<Review>(`/comments/${id}`, {comment, rating});
     return data;
   }
 );
