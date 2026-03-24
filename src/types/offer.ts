@@ -1,5 +1,6 @@
 import {City} from './city.ts';
 import {Location} from './location.ts';
+import {User} from './user.ts';
 
 export type Offer = {
     id: string;
@@ -11,5 +12,14 @@ export type Offer = {
     isFavorite: boolean;
     isPremium: boolean;
     rating: number;
-    previewImage: string;
+    previewImage?: string;
+}
+
+export type DetailedOffer = Omit<Offer, 'previewImage'> & {
+  description: string;
+  images: string[];
+  goods: string[];
+  host: User;
+  bedrooms: number;
+  maxAdults: number;
 }

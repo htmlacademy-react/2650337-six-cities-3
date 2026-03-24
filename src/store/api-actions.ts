@@ -1,9 +1,10 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {Offer} from '../types/offer';
+import {DetailedOffer, Offer} from '../types/offer';
 import {AxiosInstance} from 'axios';
-import {setAuthorizationStatus, setUserEmail} from './reducer.ts';
+import {setAuthorizationStatus, setLoginError, setUserEmail} from './reducer.ts';
 import {AuthStatus} from '../const.ts';
 import {AuthData} from '../types/auth.ts';
+import {Review} from '../types/review.ts';
 
 export const fetchOffers = createAsyncThunk<
   Offer[],
@@ -17,6 +18,54 @@ export const fetchOffers = createAsyncThunk<
   }
 );
 
+export const fetchDetailedOffer = createAsyncThunk<
+  DetailedOffer,
+  string,
+  {extra: AxiosInstance}
+>(
+  'offers/fetchDetailedOffer',
+  async (id, {extra: api}) => {
+    const {data} = await api.get<DetailedOffer>(`/offers/${id}`);
+    return data;
+  }
+);
+
+export const fetchNearbyOffers = createAsyncThunk<
+  Offer[],
+  string,
+  {extra: AxiosInstance}
+>(
+  '/offers/fetchNearbyOffers',
+  async (id, {extra: api}) => {
+    const {data} = await api.get<Offer[]>(`/offers/${id}/nearby`);
+    return data;
+  }
+);
+
+export const fetchReviews = createAsyncThunk<
+  Review[],
+  string,
+  {extra: AxiosInstance}
+>(
+  '/reviews/fetchReviews',
+  async (id, {extra: api}) => {
+    const {data} = await api.get<Review[]>(`/comments/${id}`);
+    return data;
+  }
+);
+
+export const postReview = createAsyncThunk<
+  Review,
+  {id: string; comment: string; rating: number},
+  {extra: AxiosInstance}
+>(
+  '/reviews/postReview',
+  async ({id, comment, rating}, {extra: api}) => {
+    const {data} = await api.post<Review>(`/comments/${id}`, {comment, rating});
+    return data;
+  }
+);
+
 export const checkAuth = createAsyncThunk<
   void,
   void,
@@ -25,8 +74,9 @@ export const checkAuth = createAsyncThunk<
   'user/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
     try {
-      await api.get('/login');
+      const {data} = await api.get<AuthData>('/login');
       dispatch(setAuthorizationStatus(AuthStatus.Auth));
+      dispatch(setUserEmail(data.email));
     } catch {
       dispatch(setAuthorizationStatus(AuthStatus.NoAuth));
     }
@@ -46,10 +96,10 @@ export const login = createAsyncThunk<
       localStorage.setItem('token', data.token);
       dispatch(setAuthorizationStatus(AuthStatus.Auth));
       dispatch(setUserEmail(data.email));
+      dispatch(setLoginError(null));
 
     } catch (error) {
-      void 0;
-      // а вообще чего мы тут делать то должны? показывать ошибку что емейл/пароль неверный или нет?
+      dispatch(setLoginError('Неверный email или пароль'));
     }
   }
 );
